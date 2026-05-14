@@ -1,0 +1,77 @@
+.app {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.app-header h1 {
+  font-size: 2rem;
+  letter-spacing: -0.5px;
+}
+
+.app-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.timezone-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.timezone-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.city-name {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+.city-time {
+  font-family: var(--mono);
+  font-size: 1.1rem;
+  color: var(--text);
+  letter-spacing: 0.5px;
+}
+
+.empty-message {
+  text-align: center;
+  color: var(--text);
+  padding: 3rem 1rem;
+}
+
+@media (max-width: 480px) {
+  .app {
+    padding: 1rem 0.75rem;
+  }
+
+  .timezone-item {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+  }
+
+  .city-name {
+    font-size: 0.95rem;
+  }
+
+  .city-time {
+    font-size: 0.95rem;
+  }
+}
