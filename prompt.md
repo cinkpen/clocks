@@ -1,6 +1,3 @@
-## First-Time Setup
-Before starting, run `/init` to create the CLAUDE.md file for this project. Follow the prompts and generate it with sensible defaults.
-
 You are an autonomous software development agent. Execute the following story completely and thoroughly.
 
 ## Product Context
@@ -20,19 +17,19 @@ Summary of the product context gathered: 'Clocks' is a tool for developers to tr
   },
   "frontend_components": {
     "ClocksAppView": {
-      "description": "Main application view for displaying selected cities and their current local times.",
+      "description": "Main application view responsible for orchestrating the display of selected cities and their real-time local times.",
       "components_used": [
         "CityTimeListComponent"
       ]
     },
     "CityTimeListComponent": {
-      "description": "Container component that renders a list of CityTimeDisplay components.",
+      "description": "Container component that successfully renders a list of CityTimeDisplay components, driven by the SelectedCitiesStore.",
       "inputs": [
         "Array<CityConfig>"
       ]
     },
     "CityTimeDisplayComponent": {
-      "description": "Component displaying a single city's name and its corresponding local time.",
+      "description": "Component actively displaying a single city's name and its real-time, formatted local time (HH:MM:SS AM/PM).",
       "output_format": "HH:MM:SS AM/PM",
       "inputs": [
         "CityConfig (name, timezone_id)"
@@ -42,7 +39,7 @@ Summary of the product context gathered: 'Clocks' is a tool for developers to tr
   },
   "client_side_logic": {
     "TimezoneCalculator": {
-      "description": "Utility function/module responsible for calculating and formatting current local time given a timezone ID.",
+      "description": "Utility function/module actively used for calculating and formatting current local time (HH:MM:SS AM/PM) based on a given IANA timezone ID.",
       "outputs": "string (formatted local time)",
       "inputs": [
         "timezone_id (string)"
@@ -51,7 +48,7 @@ Summary of the product context gathered: 'Clocks' is a tool for developers to tr
   },
   "state_management": {
     "SelectedCitiesStore": {
-      "description": "Manages the collection of CityConfig objects that the user has selected.",
+      "description": "Manages and supplies the collection of CityConfig objects for display in the Clocks application.",
       "data_type": "Array<CityConfig>",
       "persistence": "To be defined (e.g., local storage, user profile service)"
     }
@@ -66,17 +63,17 @@ Commit and push your changes to origin/main when done.
 ## Current Epic: Core Timezone Display and Real-time Update
 Develop the fundamental frontend component to display a list of selected cities and their corresponding local times. This epic includes ensuring that the displayed times update accurately in real-time, forming the core utility of the 'Clocks' application.
 
-## Story: As a user, I want to see a list of my selected cities and their current local times so I can track timezones at a glance.
+## Story: As a user, I want the displayed times to update every second so I always see accurate, current time.
 Priority: P0
 
 ### Acceptance Criteria
-Given I have selected one or more cities, When I view the Clocks application, Then I see a list where each item displays the city name and its corresponding local time. And the time is formatted clearly (e.g., HH:MM:SS AM/PM).
+Given I am viewing the list of selected timezones, When the local time for any displayed city changes, Then the time displayed next to that city updates automatically every second without requiring a page refresh.
 
 ### Tasks
-- [ ] Design and implement the `TimezoneDisplayItem` React component to show city and time.
-- [ ] Create the `TimezoneList` React component to render multiple `TimezoneDisplayItem`s.
-- [ ] Integrate a mechanism to pass an initial list of timezones to the `TimezoneList`.
-- [ ] Apply dark mode styling and ensure basic responsiveness for the display list.
+- [ ] Implement a client-side timer (e.g., `setInterval`) in the React application.
+- [ ] Update the time calculation logic within `TimezoneDisplayItem` to react to timer ticks.
+- [ ] Ensure time formatting remains consistent during updates.
+- [ ] Verify performance impact of real-time updates with multiple timezones.
 
 ## Instructions
 1. Complete ALL tasks above. Ensure all acceptance criteria are met.

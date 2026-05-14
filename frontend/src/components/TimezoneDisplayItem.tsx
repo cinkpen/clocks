@@ -1,20 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import type { CityConfig } from '../types/city';
 import { getLocalTime } from '../utils/timezoneCalculator';
 
 interface TimezoneDisplayItemProps {
   city: CityConfig;
+  tick: number;
 }
 
-export function TimezoneDisplayItem({ city }: TimezoneDisplayItemProps) {
-  const [time, setTime] = useState(() => getLocalTime(city.timezone_id));
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(getLocalTime(city.timezone_id));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [city.timezone_id]);
+export function TimezoneDisplayItem({ city, tick }: TimezoneDisplayItemProps) {
+  const time = useMemo(
+    () => getLocalTime(city.timezone_id),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [city.timezone_id, tick],
+  );
 
   return (
     <div className="timezone-item">
