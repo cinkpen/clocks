@@ -46,3 +46,25 @@
 - Moved to a single shared timer (`useTimeTick`) at the list level instead of per-item intervals. This scales to any number of cities with only one `setInterval` running.
 - Used `useMemo` in `TimezoneDisplayItem` to avoid unnecessary `getLocalTime` recalculations if the component re-renders for reasons other than a tick change.
 - Kept `tick` as a simple incrementing counter rather than a `Date` object — simpler state and sufficient to trigger re-computation.
+
+## 2026-05-14 — Story: As a user, I want to be able to add new cities to my tracking list so I can customize which timezones I monitor
+
+**What was done:**
+- Created `timezoneData.ts` utility with curated list of 55 popular cities mapped to IANA timezone IDs, plus a `searchCities()` function for fuzzy matching by city name or timezone ID
+- Implemented `CitySearch` component with search input, filtered dropdown, keyboard navigation (arrow keys + Enter + Escape), click-outside-to-close, and "Already added" badge for duplicates
+- Updated `App.tsx` to manage mutable cities state with `useState`, compute `existingIds` set via `useMemo`, and pass `handleAddCity` callback to `CitySearch`
+- Styled `CitySearch` with dark mode aesthetic matching existing theme (purple accent focus ring, surface backgrounds, monospace timezone labels)
+- Verified production build passes (`npm run build` — TypeScript compilation and Vite bundling succeed)
+- Newly added cities update in real-time (inherited from existing `useTimeTick` → `TimezoneList` architecture)
+
+**Files changed:**
+- `frontend/src/utils/timezoneData.ts` (new — city/timezone data and search function)
+- `frontend/src/components/CitySearch.tsx` (new — search input with dropdown component)
+- `frontend/src/App.tsx` (updated — mutable state, CitySearch integration)
+- `frontend/src/App.css` (updated — CitySearch styles)
+
+**Decisions:**
+- Used a curated city list (55 entries) instead of `Intl.supportedValuesOf('timeZone')` to provide user-friendly city names rather than raw IANA identifiers. The raw timezone IDs are shown as secondary text in the dropdown for disambiguation.
+- No third-party timezone library added — kept consistent with the project's approach of using native browser APIs.
+- Deduplication uses `timezone_id + ':' + name` composite key to allow same timezone with different city names (e.g., "Shanghai" and "Beijing" both map to Asia/Shanghai but are different entries).
+- Used `crypto.randomUUID()` for new city IDs — simple, collision-free, no dependency needed.

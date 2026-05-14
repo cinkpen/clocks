@@ -51,6 +51,93 @@
   letter-spacing: 0.5px;
 }
 
+.city-search {
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+.city-search-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-h);
+  font: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  box-sizing: border-box;
+}
+
+.city-search-input::placeholder {
+  color: var(--text);
+  opacity: 0.6;
+}
+
+.city-search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.city-search-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 10;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.city-search-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+.city-search-option.highlighted {
+  background: var(--accent-dim);
+}
+
+.city-search-option.already-added {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.option-city {
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+.option-tz {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text);
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.option-badge {
+  font-size: 0.7rem;
+  color: var(--accent);
+  background: var(--accent-dim);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
 .empty-message {
   text-align: center;
   color: var(--text);
