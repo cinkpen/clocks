@@ -11,26 +11,26 @@ Develop the fundamental frontend component to display a list of selected cities 
   - [ ] Integrate a mechanism to pass an initial list of timezones to the `TimezoneList`.
   - [ ] Apply dark mode styling and ensure basic responsiveness for the display list.
 
-- [ ] **As a user, I want the displayed times to update every second so I always see accurate, current time.** [P0]
+- [x] **As a user, I want the displayed times to update every second so I always see accurate, current time.** [P0]
   - AC: Given I am viewing the list of selected timezones, When the local time for any displayed city changes, Then the time displayed next to that city updates automatically every second without requiring a page refresh.
   - [ ] Implement a client-side timer (e.g., `setInterval`) in the React application.
   - [ ] Update the time calculation logic within `TimezoneDisplayItem` to react to timer ticks.
   - [ ] Ensure time formatting remains consistent during updates.
   - [ ] Verify performance impact of real-time updates with multiple timezones.
 
-- [ ] **As a user, I want to be able to add new cities to my tracking list so I can customize which timezones I monitor.** [P1]
+- [x] **As a user, I want to be able to add new cities to my tracking list so I can customize which timezones I monitor.** [P1]
   - AC: Given I am on the Clocks application, When I interact with an 'Add City' control and select a city from a search/dropdown, Then the selected city and its local time appear in my list of tracked timezones.
   - [ ] Design and implement a search input and suggestion/dropdown component for cities/timezones.
   - [ ] Integrate a timezone data library (e.g., `moment-timezone`, `date-fns-tz`) to get city-timezone mappings.
   - [ ] Implement state management logic to add a new timezone to the list.
   - [ ] Ensure the newly added timezone also updates in real-time.
 
-- [ ] **As a user, I want my selected timezones to be saved so I don't have to re-add them every time I open the application.** [P1]
+- [x] **As a user, I want my selected timezones to be saved so I don't have to re-add them every time I open the application.** [P1]
   - AC: Given I have added cities to my tracking list, When I close and then reopen the Clocks application, Then my previously selected cities are automatically displayed in the list.
-  - [ ] Identify a suitable client-side storage mechanism (e.g., `localStorage`).
-  - [ ] Implement logic to save the current list of timezones to `localStorage` on updates (add/remove).
-  - [ ] Implement logic to load timezones from `localStorage` when the application initializes.
-  - [ ] Handle edge cases where `localStorage` is empty or corrupted.
+  - [x] Identify a suitable client-side storage mechanism (e.g., `localStorage`).
+  - [x] Implement logic to save the current list of timezones to `localStorage` on updates (add/remove).
+  - [x] Implement logic to load timezones from `localStorage` when the application initializes.
+  - [x] Handle edge cases where `localStorage` is empty or corrupted.
 
 - [ ] **As a user, I want to be able to remove cities from my tracking list so I can manage my monitored timezones.** [P1]
   - AC: Given I have a list of tracked timezones, When I click a 'Remove' button next to a specific city, Then that city and its time are removed from my display list.

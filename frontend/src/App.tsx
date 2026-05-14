@@ -1,7 +1,8 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useMemo } from 'react';
 import type { CityConfig } from './types/city';
 import { TimezoneList } from './components/TimezoneList';
 import { CitySearch } from './components/CitySearch';
+import { usePersistedCities } from './hooks/usePersistedCities';
 import './App.css';
 
 const DEFAULT_CITIES: CityConfig[] = [
@@ -12,16 +13,12 @@ const DEFAULT_CITIES: CityConfig[] = [
 ];
 
 function App() {
-  const [cities, setCities] = useState<CityConfig[]>(DEFAULT_CITIES);
+  const { cities, addCity } = usePersistedCities(DEFAULT_CITIES);
 
   const existingIds = useMemo(
     () => new Set(cities.map((c) => c.timezone_id + ':' + c.name)),
     [cities],
   );
-
-  const handleAddCity = useCallback((city: CityConfig) => {
-    setCities((prev) => [...prev, city]);
-  }, []);
 
   return (
     <div className="app">
@@ -29,7 +26,7 @@ function App() {
         <h1>Clocks</h1>
       </header>
       <main className="app-main">
-        <CitySearch onAdd={handleAddCity} existingIds={existingIds} />
+        <CitySearch onAdd={addCity} existingIds={existingIds} />
         <TimezoneList cities={cities} />
       </main>
     </div>

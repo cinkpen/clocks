@@ -68,3 +68,25 @@
 - No third-party timezone library added — kept consistent with the project's approach of using native browser APIs.
 - Deduplication uses `timezone_id + ':' + name` composite key to allow same timezone with different city names (e.g., "Shanghai" and "Beijing" both map to Asia/Shanghai but are different entries).
 - Used `crypto.randomUUID()` for new city IDs — simple, collision-free, no dependency needed.
+
+## 2026-05-14 — Story: As a user, I want my selected timezones to be saved so I don't have to re-add them every time I open the application
+
+**What was done:**
+- Created `usePersistedCities` custom hook (`frontend/src/hooks/usePersistedCities.ts`) that manages city state with localStorage persistence
+- Loads cities from `localStorage` on initialization, falling back to default cities if storage is empty or data is corrupted
+- Saves cities to `localStorage` automatically via `useEffect` whenever the cities list changes
+- Validates loaded data with `isCityConfig` type guard — rejects non-array values, non-object entries, and entries missing required string fields (`id`, `timezone_id`, `name`)
+- Silently ignores `localStorage` write failures (e.g., storage full or unavailable)
+- Updated `App.tsx` to use `usePersistedCities` instead of raw `useState`, keeping the same `DEFAULT_CITIES` fallback
+- Hook exposes `addCity` and `removeCity` callbacks for future use (remove feature is a separate story)
+- Verified production build passes (`npm run build`)
+
+**Files changed:**
+- `frontend/src/hooks/usePersistedCities.ts` (new — localStorage persistence hook)
+- `frontend/src/App.tsx` (updated — uses `usePersistedCities` instead of `useState`)
+
+**Decisions:**
+- Used `localStorage` (key: `clocks-selected-cities`) over `sessionStorage` — data must survive across browser sessions.
+- Validation uses a runtime type guard (`isCityConfig`) rather than a schema library — lightweight and sufficient for three string fields.
+- If stored data is an array but all entries are invalid, falls back to defaults rather than showing an empty list.
+- Kept `removeCity` in the hook's return value since the remove-city story will need it, but omitted it from App.tsx destructuring to avoid unused-variable lint errors.
